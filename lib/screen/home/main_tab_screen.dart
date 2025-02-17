@@ -1,12 +1,7 @@
-import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
-import 'package:awesome_bottom_bar/tab_item.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:medicare/common/color_extension.dart';
-import 'package:medicare/common_widget/Nvigation.dart';
-
-import 'package:medicare/screen/home/Drawer.dart';
-import 'package:medicare/screen/home/doctor_profile_screen.dart';
+import 'package:medicare/common_widget/menu_row.dart';
+import 'package:medicare/screen/home/chat/chat_message_screen.dart';
 import 'package:medicare/screen/home/home_tab_screen.dart';
 
 class MainTabScreen extends StatefulWidget {
@@ -21,8 +16,6 @@ class _MainTabScreenState extends State<MainTabScreen>
   late TabController controller;
   int selectTab = 0;
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey();
-
-  int _pageIndex = 2;
 
   List menuArr = [
     {'name': 'My Appointments', 'icon': 'assets/img/my_apo.png', 'action': '1'},
@@ -44,9 +37,9 @@ class _MainTabScreenState extends State<MainTabScreen>
 
   @override
   void initState() {
-
+    // TODO: implement initState
     super.initState();
-    controller = TabController(length: 5, vsync: this);
+    controller = TabController(length: 3, vsync: this);
     controller.addListener(() {
       setState(() {
         selectTab = controller.index;
@@ -56,7 +49,7 @@ class _MainTabScreenState extends State<MainTabScreen>
 
   @override
   void dispose() {
-
+    // TODO: implement dispose
     super.dispose();
 
     controller.dispose();
@@ -64,41 +57,106 @@ class _MainTabScreenState extends State<MainTabScreen>
 
   @override
   Widget build(BuildContext context) {
-
-const List<TabItem> items = [
-  TabItem(
-    icon: Icons.home,
-    title: 'Home',
-  ),
-  TabItem(
-    icon: Icons.search_sharp,
-    title: 'Shop',
-  ),
-  // TabItem(
-  //   icon: Icons.favorite_border,
-  //   title: 'Wishlist',
-  // ),
-  // TabItem(
-  //   icon: Icons.shopping_cart_outlined,
-  //   title: 'Cart',
-  // ),
-  // TabItem(
-  //   icon: Icons.account_box,
-  //   title: 'profile',
-  // ),
-];
-
- int visit = 0;
-  double height = 30;
-  Color colorSelect =const Color(0XFF0686F8);
-  Color color = const Color(0XFF7AC0FF);
-  Color color2 = const Color(0XFF96B1FD);
-  Color bgColor = const  Color(0XFF1752FE);
-
     return Scaffold(
-      key: scaffoldStateKey, 
-      drawer: const SideNav(),
-      
+      key: scaffoldStateKey,
+      drawer: Drawer(
+        width: context.width * 0.78,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: TColor.primary,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                ),
+              ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              scaffoldStateKey.currentState?.closeDrawer();
+                            },
+                            icon: const Icon(
+                              Icons.close,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              "assets/img/u1.png",
+                              width: 80,
+                              height: 80,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Manish Chutake",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                "Surat",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              )
+                            ],
+                          ))
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+                child: ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              itemBuilder: (context, index) {
+                var obj = menuArr[index];
+
+                return MenuRow(
+                  obj: obj,
+                  onPressed: () {},
+                );
+              },
+              separatorBuilder: (context, index) => const Divider(
+                color: Colors.black12,
+                height: 1,
+              ),
+              itemCount: menuArr.length,
+            ))
+          ],
+        ),
+      ),
       appBar: AppBar(
         centerTitle: false,
         leading: IconButton(
@@ -112,7 +170,7 @@ const List<TabItem> items = [
           ),
         ),
         title: const Text(
-          "Medicare",
+          "MedLink",
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,
@@ -162,176 +220,65 @@ const List<TabItem> items = [
           )
         ],
       ),
-      bottomNavigationBar: Container(
-        // padding:const EdgeInsets.only(bottom: 30, right: 32, left: 32),
-        decoration: BoxDecoration(
-          color: TColor.primary,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-        ),
-        child: BottomBarFloating(
-          items: items,
-          backgroundColor: Colors.transparent,
-          color: Colors.white,
-          colorSelected: Colors.orange,
-          indexSelected: visit,
-          paddingVertical: 24,
-          onTap: (int index) => setState(() {
-            visit = index;
-            // controller.index = index;
-          }),
-        ),
-      ), 
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              width: double.maxFinite,
-              height: 15,
-              decoration: BoxDecoration(
-                  color: TColor.primary,
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15))),
-            ),
-            Expanded(
-              child: TabBarView(controller: controller, children: [
-                HomeTabScreen(),
-                DoctorProfileScreen(),
-                DoctorProfileScreen(),
-                DoctorProfileScreen(),
-                DoctorProfileScreen(),
-              ]),
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          Container(
+            width: double.maxFinite,
+            height: 15,
+            decoration: BoxDecoration(
+                color: TColor.primary,
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15))),
+          ),
+          Expanded(
+            child: TabBarView(controller: controller, children: [
+              const HomeTabScreen(),
+              const  ChatMessageScreen(),
+              Container(),
+            ]),
+          ),
+        ],
       ),
-      // body: Column(
-      //   children: [
-      //     Container(
-      //       width: double.maxFinite,
-      //       height: 15,
-      //       decoration: BoxDecoration(
-      //           color: TColor.primary,
-      //           borderRadius: const BorderRadius.only(
-      //               bottomLeft: Radius.circular(15),
-      //               bottomRight: Radius.circular(15))),
-      //     ),
-      //     Expanded(
-      //       child: TabBarView(controller: controller, children: [
-      //         HomeTabScreen(),
-      //         DoctorProfileScreen(),
-             
-      //       ]),
-      //     ),
-
-          
-      //   ],
-      // ),
-      // bottomNavigationBar: CurvedNavigationBar(
-        
-      //     height: 75, 
-      //     index: _pageIndex,
-      //     letIndexChange: (index) => true,
-      //     backgroundColor: Colors.transparent,
-      //     buttonBackgroundColor: TColor.primary,
-      //     color: TColor.primary,
-      //     items: [
-            
-      //       Container(
-      //         padding: const EdgeInsets.all(5),
-      //         height: 50,
-      //         width: 50,
-      //         decoration: BoxDecoration(
-      //           color: TColor.primary,
-      //           borderRadius: BorderRadius.circular(50),
-      //         ),
-      //         child: Center(
-      //           child: Image.asset(
-      //             "assets/img/calendar.png",
-      //             width: 30,
-      //             height: 30,
-      //           ),
-      //         ),
-      //       ),
-      //       Container(
-      //         padding: const EdgeInsets.all(5),
-      //         height: 50,
-      //         width: 50,
-      //         decoration: BoxDecoration(
-      //           color: TColor.primary,
-      //           borderRadius: BorderRadius.circular(50),
-      //         ),
-      //         child: Center(
-      //           child: Image.asset(
-      //             "assets/img/user.png",
-      //             width: 30,
-      //             height: 30,
-      //           ),
-      //         ),
-      //       ),
-      //       Container(
-      //         padding: const EdgeInsets.all(5),
-      //         height: 50,
-      //         width: 50,
-      //         decoration: BoxDecoration(
-      //           color: TColor.primary,
-      //           borderRadius: BorderRadius.circular(50),
-      //         ),
-      //         child: Center(
-      //           child: Image.asset(
-      //             "assets/img/home.png",
-      //             width: 35,
-      //             height: 35,
-      //           ),
-      //         ),
-      //       ),
-      //       Container(
-      //         padding: const EdgeInsets.all(5),
-      //         height: 50,
-      //         width: 50,
-      //         decoration: BoxDecoration(
-      //           color: TColor.primary,
-      //           borderRadius: BorderRadius.circular(50),
-      //         ),
-      //         child: Center(
-      //           child: Image.asset(
-      //             "assets/img/bulb.png",
-      //             width: 30,
-      //             height: 30,
-      //           ),
-      //         ),
-      //       ),
-      //        Container(
-      //         padding: const EdgeInsets.all(5),
-      //         height: 50,
-      //         width: 50,
-      //         decoration: BoxDecoration(
-      //           color: TColor.primary,
-      //           borderRadius: BorderRadius.circular(50),
-      //         ),
-      //         child: Center(
-      //           child: Image.asset(
-      //             "assets/img/user.png",
-      //             width: 30,
-      //             height: 30,
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //     animationCurve: Curves.easeInOut,
-      //     animationDuration: const Duration(milliseconds: 300),
-      //     onTap: (index) {
-      //       setState(() {
-      //         _pageIndex = index;
-      //       });
-      //     },
-      //     // onDestinationSelected: (value) {},
-      //   ),
-    
-    
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black12, blurRadius: 5, offset: Offset(0, -2))
+            ]),
+        child: TabBar(
+            controller: controller,
+            indicatorColor: Colors.transparent,
+            tabs: [
+              Tab(
+                icon: Image.asset(
+                  "assets/img/home_tab_ic.png",
+                  width: 32,
+                  color: selectTab == 0 ? TColor.primary : TColor.unselect,
+                ),
+              ),
+              Tab(
+                icon: Image.asset(
+                  "assets/img/chat_tab_ic.png",
+                  width: 32,
+                  color: selectTab == 1 ? TColor.primary : TColor.unselect,
+                ),
+              ),
+              Tab(
+                icon: Image.asset(
+                  "assets/img/setting_tab_ic.png",
+                  width: 32,
+                  color: selectTab == 2 ? TColor.primary : TColor.unselect,
+                ),
+              )
+            ]),
+      ),
     );
   }
 }
-
-

@@ -1,3 +1,3 @@
 class Globs {
-  static const appName = "Medicare";
+  static const appName = "MediLink";
 }

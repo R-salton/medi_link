@@ -3,7 +3,7 @@ import 'package:medicare/common/color_extension.dart';
 import 'package:medicare/common/globs.dart';
 import 'package:medicare/screen/login/splash_screen.dart';
 
-void main() { 
+void main() {
   runApp(const MyApp());
 }
 

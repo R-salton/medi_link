@@ -16,11 +16,9 @@ class _MedicalShopListScreenState extends State<MedicalShopListScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () {},
           icon: const Icon(
-            Icons.arrow_back_ios,
+            Icons.close,
             color: Colors.white,
           ),
         ),

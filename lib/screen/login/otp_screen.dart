@@ -1,8 +1,6 @@
-import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:medicare/common/color_extension.dart';
-import 'package:medicare/screen/home/main_tab_screen.dart';
 import 'package:medicare/screen/login/verified_screen.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -16,6 +14,7 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     
       body: SingleChildScrollView(
         child: SizedBox(
           width: context.width,
@@ -26,9 +25,18 @@ class _OTPScreenState extends State<OTPScreen> {
               SizedBox(
                 height: context.width * 0.3,
               ),
-              Image.asset(
-                "assets/img/color_logo.png",
-                width: context.width * 0.33,
+              Container(
+                decoration: BoxDecoration(
+                  color: TColor.primary,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(context.width),
+                    bottomRight: Radius.circular(context.width),
+                  ),
+                ),
+                child: Image.asset(
+                  "assets/img/logo_1.png",
+                  width: context.width * 0.43,
+                ),
               ),
               SizedBox(
                 height: context.width * 0.05,
@@ -74,19 +82,8 @@ class _OTPScreenState extends State<OTPScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: InkWell(
-
-
                   onTap: () {
-
-                  
-  context.push(const VerifiedScreen());
-  Future.delayed(const Duration(seconds: 1), () {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const MainTabScreen()),
-        (route) => false
-    );
-  });
+                    context.push( const VerifiedScreen() );
                   },
                   child: Container(
                     width: double.maxFinite,

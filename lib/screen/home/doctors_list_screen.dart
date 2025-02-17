@@ -21,7 +21,7 @@ class _DoctorsListScreenState extends State<DoctorsListScreen> {
             context.pop();
           },
           icon: const Icon(
-            Icons.arrow_back_ios,
+            Icons.close,
             color: Colors.white,
             size: 25,
           ),

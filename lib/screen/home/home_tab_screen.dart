@@ -4,7 +4,6 @@ import 'package:medicare/common_widget/category_button.dart';
 import 'package:medicare/common_widget/section_row.dart';
 import 'package:medicare/screen/home/category_filter_screen.dart';
 import 'package:medicare/screen/home/doctor_cell.dart';
-import 'package:medicare/screen/home/doctors_list_screen.dart';
 import 'package:medicare/screen/home/medical_shop/medical_shop_list_screen.dart';
 import 'package:medicare/screen/home/medical_shop/medical_shop_profile_screen.dart';
 import 'package:medicare/screen/home/only_docter_profile_screen.dart';
@@ -135,9 +134,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       ),
                   itemCount: adsArr.length),
             ),
-            SectionRow(title: "Doctors near by you", onPressed: () {
-              context.push(const DoctorsListScreen());
-            }),
+            SectionRow(title: "Doctors near by you", onPressed: () {}),
             SizedBox(
               height: 220,
               child: ListView.separated(

@@ -43,7 +43,7 @@ class _VeriftedScreenState extends State<VerifiedScreen> {
             children: [
               Text(
                 "You are Verified",
-                style: TextStyle( 
+                style: TextStyle(
                   color: TColor.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,

@@ -142,9 +142,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   alignment: Alignment.center,
-                  child: const Text(
-                    "Next",
-                    style: TextStyle(
+                  child:  Text(
+                   selectPage == 2 ? "Get Started" : "Next",
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

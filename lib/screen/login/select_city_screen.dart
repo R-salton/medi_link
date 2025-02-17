@@ -121,7 +121,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
                           horizontal: 10, vertical: 10),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Rwanda",
+                        "Kigali",
                         style: TextStyle(
                           color: selectIndex == index
                               ? TColor.black
