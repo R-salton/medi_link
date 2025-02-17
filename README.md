@@ -1,6 +1,6 @@
-# medicare
-
-A new Flutter project.
+# mediLink
+![Logo](assets/img/logo_1.png)
+Flutter project.
 
 ## Getting Started
 
